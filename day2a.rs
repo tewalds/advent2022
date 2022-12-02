@@ -9,13 +9,9 @@ fn main() -> io::Result<()> {
         if line.len() == 3 {
             let a = i32::from(line.as_bytes()[0]) - 65;
             let b = i32::from(line.as_bytes()[2]) - 88;
-            let mut score = b + 1;
-            if a == b {
-                score += 3;
-            } else if a == (b + 2) % 3 {
-                score += 6;
-            }
-            // println!("{} {} {}", a, b, score);
+            let o = (b - a + 4) % 3;
+            let score = b + 1 + o * 3;
+            // println!("{} {} {} {}", a, b, o, score);
             total += score;
         }
     }
