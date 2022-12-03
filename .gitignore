@@ -2,3 +2,5 @@ day[1-9]
 day[1-9][0-9]
 day[1-9][ab]
 day[1-9][0-9][ab]
+Cargo.lock
+target/
