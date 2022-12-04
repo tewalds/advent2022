@@ -14,8 +14,7 @@ fn main() -> io::Result<()> {
         .group_by(|(i, _)| i / 3).into_iter()
         .map(|(_, group)|
             group
-            .map(|(_, lines)| lines)
-            .map(|line| line.unwrap().as_bytes().iter().cloned().collect::<HashSet<u8>>())
+            .map(|(_, line)| line.unwrap().as_bytes().iter().cloned().collect::<HashSet<u8>>())
             .reduce(|a, b| a.intersection(&b).cloned().collect())
             .unwrap()
             .iter()
