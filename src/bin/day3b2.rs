@@ -10,12 +10,12 @@ fn main() -> io::Result<()> {
     let scores = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".as_bytes();
     let total = io::BufReader::new(file)
         .lines()
-        .map(|line| line.unwrap().as_bytes().iter().cloned().collect::<HashSet<u8>>())
         .enumerate()
         .group_by(|(i, _)| i / 3).into_iter()
-        .map(|(_, v)| 
-            v
-            .map(|(_, v)| v)
+        .map(|(_, group)|
+            group
+            .map(|(_, lines)| lines)
+            .map(|line| line.unwrap().as_bytes().iter().cloned().collect::<HashSet<u8>>())
             .reduce(|a, b| a.intersection(&b).cloned().collect())
             .unwrap()
             .iter()
