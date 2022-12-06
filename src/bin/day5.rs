@@ -11,17 +11,7 @@ fn main() -> io::Result<()> {
         let line = line?;
 
         if line.len() == 0 {
-            reading_stack = false;
-            for i in 0..stacks.len() {
-                let len = stacks[i].len();
-                stacks[i].truncate(len - 1);
-                stacks[i].reverse();
-            }
-            // for mut s in stacks {
-            //     s.truncate(s.len() - 1);
-            //     s.reverse();
-            // }
-        continue;
+            continue;
         }
         if reading_stack {
             let line: Vec<char> = line.chars().collect();
@@ -31,10 +21,17 @@ fn main() -> io::Result<()> {
                     stacks.push(Vec::new());
                 }
             }
-            for i in 0..count {
-                let col = i*4 + 1;
-                if line[col] != ' ' {
-                    stacks[i].push(line[col]);
+            if line[1] == '1' {
+                reading_stack = false;
+                for s in &mut stacks {
+                    s.reverse();
+                }
+            } else {
+                for i in 0..count {
+                    let col = i*4 + 1;
+                    if line[col] != ' ' {
+                        stacks[i].push(line[col]);
+                    }
                 }
             }
         } else {
@@ -42,6 +39,8 @@ fn main() -> io::Result<()> {
             let count = parts[1].parse::<usize>().unwrap();
             let src = parts[3].parse::<usize>().unwrap() - 1;
             let dest = parts[5].parse::<usize>().unwrap() - 1;
+
+            // How to write these with extend without fighting the borrow checker?
 
             // Part 1:
             for _ in 0..count {
